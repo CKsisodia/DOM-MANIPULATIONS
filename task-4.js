@@ -1,58 +1,25 @@
-var form = document.getElementById("addForm");
-var itemList = document.getElementById("items");
+var filter = document.getElementById('filter');
 
-//form submit event
-form.addEventListener("submit", addItem);
+//filter event
+filter.addEventListener('keyup',filterItems);
 
-//delete event
-itemList.addEventListener("click", removeItem);
+  var addItem = document.getElementById('item-2').value;
 
-//add item
-function addItem(e) {
-  e.preventDefault();
+ li.appendChild(document.createTextNode(newItem));
 
-  //get input value
-  var newItem = document.getElementById("item").value;
-
-  //create new li element
-  var li = document.createElement("li");
-  //add class
-  li.className = "list-group-item";
-  //add textnode with input value
-  li.appendChild(document.createTextNode(newItem));
-
-  //create delete button
-  var deletebtn = document.createElement("button");
-  //add class to delete button
-  deletebtn.className = "btn btn-danger btn-sm ml-1 float-right delete";
-  //append text node
-  deletebtn.appendChild(document.createTextNode("X"));
-  //append  button to li
-  li.appendChild(deletebtn);
-
-
- //create edit button
- var editbtn = document.createElement("button");
- //add class to edit button
- editbtn.className = "btn btn-sm float-right btn-success";
- //append text node
- editbtn.appendChild(document.createTextNode("Edit"));
- //append  button to li
- li.appendChild(editbtn);
-
-
-
-
-  //append li to list
-  itemList.appendChild(li);
-}
-
-//remove item
-function removeItem(e){
-  if(e.target.classList.contains('delete')){
-    if(confirm('Are you sure?')){
-      var li = e.target.parentElement;
-      itemList.removeChild(li);
-    }
-  }
-}
+//filter items
+function filterItems(e){
+    //convert text to lowercase
+    var text = e.target.value.toLowerCase();
+    //get ALL li'S
+    var items = itemList.getElementsByTagName('li');
+    // Convert to an array
+    Array.from(items).forEach(function(item){
+        const itemName = item.firstChild.textContent;
+        const item2 = item.childNodes[1].textContent;
+        if(itemName.toLowerCase().indexOf(text) != -1 || item2.toLowerCase().indexOf(text) != -1){
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
