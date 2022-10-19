@@ -1,25 +1,25 @@
-var filter = document.getElementById('filter');
+var btn = document.querySelector(".btn");
+btn.addEventListener("click", (e) => {
+  document.querySelector("#my-form").style.background = "#90EE90";
+});
 
-//filter event
-filter.addEventListener('keyup',filterItems);
+var btn = document.querySelector(".btn");
+btn.addEventListener("mouseover", (e) => {
+  e.preventDefault();
+  document.querySelector("#my-form").style.background = "pink";
+});
 
-  var addItem = document.getElementById('item-2').value;
+var btn = document.querySelector(".btn");
+btn.addEventListener("mouseout", (e) => {
+  e.preventDefault();
+  document.querySelector("#my-form").style.background = "orange";
+});
+function saveToLocalStorage(event){
+    event.preventDefault();
+    const Uname = event.target.username.value;
+    const Uemail = event.target.emailId.value;
 
- li.appendChild(document.createTextNode(newItem));
+    localStorage.setItem('name',Uname);
+    localStorage.setItem('email',Uemail);
 
-//filter items
-function filterItems(e){
-    //convert text to lowercase
-    var text = e.target.value.toLowerCase();
-    //get ALL li'S
-    var items = itemList.getElementsByTagName('li');
-    // Convert to an array
-    Array.from(items).forEach(function(item){
-        const itemName = item.firstChild.textContent;
-        const item2 = item.childNodes[1].textContent;
-        if(itemName.toLowerCase().indexOf(text) != -1 || item2.toLowerCase().indexOf(text) != -1){
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
+}
