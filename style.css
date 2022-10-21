@@ -45,14 +45,14 @@
     width: 100%;
     padding: 10px 15px;
     border: 0;
-    background: #333;
+    background: rgb(14, 0, 0);
     color: #fff;
     border-radius: 5px;
     margin: 20px 0;
   }
   
   .btn:hover {
-    background: #444;
+    background: rgb(94, 202, 67);
   }
   
   .error {

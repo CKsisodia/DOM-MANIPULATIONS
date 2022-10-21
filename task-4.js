@@ -1,3 +1,4 @@
+//input values save to local storage
 function saveToLocalStorage(event) {
   event.preventDefault();
   const Uname = event.target.username.value;
@@ -9,9 +10,10 @@ function saveToLocalStorage(event) {
   };
   localStorage.setItem(UserDetail.Uemail, JSON.stringify(UserDetail));
 
-  detailsAtDOM(UserDetail);
+  showAtDOM(UserDetail); // object UserDetail values passed to function detailsAtDom
 }
 
+// prevent input values to be removed on REFRESHING page
 window.addEventListener("DOMContentLoaded", () => {
   const localStorageObj = localStorage;
   const localStoragekeys = Object.keys(localStorageObj);
@@ -20,12 +22,39 @@ window.addEventListener("DOMContentLoaded", () => {
     const key = localStoragekeys[i];
     const userDetailsString = localStorageObj[key];
     const userDetailsObj = JSON.parse(userDetailsString);
-    detailsAtDOM(userDetailsObj);
+    showAtDOM(userDetailsObj);
   }
 });
 
-function detailsAtDOM(User) {
+// getting values from local storage and SHOW AT DOM 
+function showAtDOM(User) {
   const parentNode = document.getElementById("list");
-  const childHTML = `<li> ${User.Uname} - ${User.Uemail}  <button>Edit</button> <button>Delete</button> </li>`;
+  const childHTML = `<li id='${User.Uemail}'> ${User.Uname} - ${User.Uemail} 
+     <button onclick=editUser('${User.Uemail}','${User.Uname}') style='background-color:green; font-weight:bold; border-color:yellow;
+                              font-size:15px; font-style:italic;'>Edit</button> 
+    <button onclick=deleteUser('${User.Uemail}') style='background-color:red; font-weight:bold; font-weight:bold; border-color:yellow;
+                              font-size:15px; font-style:italic'>Delete</button> 
+                        </li>`;
   parentNode.innerHTML = parentNode.innerHTML + childHTML;
+}
+
+//remove data from local storage
+function deleteUser(emailId){
+  localStorage.removeItem(emailId);
+  removeUserFromScreen(emailId);
+}
+
+//remove data from UI/data shown at dom
+function removeUserFromScreen(emailId){
+  const parentNode = document.getElementById("list");
+  const childNodeToBeDeleted = document.getElementById(emailId);
+
+  parentNode.removeChild(childNodeToBeDeleted);
+}
+
+function editUser(emailId,username){
+  document.getElementById('name').value = username;
+  document.getElementById('email').value = emailId;
+
+  deleteUser(emailId);
 }
